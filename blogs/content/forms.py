@@ -1,7 +1,11 @@
 from django import forms
-from .models import Blogs
+from .models import *
 
 class BlogForm(forms.ModelForm):
     class Meta:
-        model = Blogs
-        fields = ['name','title', 'type', 'description', 'image',]
+        model = Blog
+        fields = ['name', 'title', 'type', 'description', 'image']
+    type = forms.ModelMultipleChoiceField(
+        queryset=BlogType.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
