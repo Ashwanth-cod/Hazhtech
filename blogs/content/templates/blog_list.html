@@ -1,0 +1,8 @@
+{% for blog in blogs %}
+    <h2>{{ blog.title }}</h2>
+    <p>Author: {{ blog.name }}</p>
+    <p>Type: {{ blog.type }}</p>
+    <img src="{{ blog.image.url }}" alt="{{ blog.title }}" width="200">
+    <p>{{ blog.description }}</p>
+    <hr>
+{% endfor %}

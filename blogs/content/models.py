@@ -6,12 +6,12 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 
 class Blogs(models.Model):
+    name = models.CharField(max_length=100)  # Replace author with name
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.CharField(max_length=50, choices=[
         ('Tech', 'Tech'),
-        ('Doubt', 'Dout'),
+        ('Doubt', 'Doubt'),
     ])
     description = models.TextField()
     image = models.ImageField(upload_to='images/')
