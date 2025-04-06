@@ -3,192 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Listing</title>
+    <title>Our Blogs</title>
     <style>
-        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
 
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f8ff; /* Alice Blue */
-    color: #333;
-}
+        header {
+            font-size: 28px;
+            font-weight: bold;
+            padding: 20px;
+        }
 
-header {
-    background-color: #87ceeb; /* Sky Blue */
-    padding: 15px 0;
-}
+        .filter-container {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-}
+        .filter-container:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-}
+        .custom-select {
+            position: relative;
+            width: 200px;
+        }
 
-.nav-links {
-    list-style: none;
-    padding: 0;
-}
+        .custom-select select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+            appearance: none;
+            outline: none;
+            font-weight: bold;
+        }
 
-.nav-links li {
-    display: inline;
-    margin-left: 20px;
-}
+        .custom-select::after {
+            content: '\25BC';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333;
+            pointer-events: none;
+        }
 
-.nav-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-}
+        .container {
+            margin-top: 100px;
+            padding: 20px;
+        }
 
-.container {
-    max-width: 1100px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        .blog-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
 
-.filter-container {
-    margin-bottom: 20px;
-}
+        .blog-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: left;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-label {
-    font-size: 16px;
-    margin-right: 10px;
-}
+        .blog-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
 
-select {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #87ceeb;
-    border-radius: 4px;
-    background-color: #f0f8ff;
-    color: #333;
-}
+        .image-container img {
+            width: 100%;
+            border-radius: 10px;
+        }
 
-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #87ceeb;
-    color: white;
-    cursor: pointer;
-}
+        .no-image {
+            width: 100%;
+            padding: 60px 0;
+            background: #f4f4f4;
+            color: #777;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            text-align: center;
+        }
 
-button:hover {
-    background-color: #4682b4; /* Steel Blue */
-}
+        .tags {
+            margin-top: 10px;
+        }
 
-.blog-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
+        .tag {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
 
-.blog-card {
-    border: 1px solid #ddd;
-    background: white;
-    padding: 15px;
-    width: 300px;
-    border-radius: 5px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.blog-card img {
-    width: 100%;
-    border-radius: 5px;
-}
-
-h3 {
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-.blog-card p {
-    font-size: 14px;
-    color: #555;
-}
-
-.read-more {
-    display: inline-block;
-    margin-top: 10px;
-    text-decoration: none;
-    color: #007BFF;
-    font-weight: bold;
-}
-
-.read-more:hover {
-    text-decoration: underline;
-}
-
-footer {
-    background-color: #87ceeb;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 20px;
-}
-
+        .read-more {
+            display: block;
+            margin-top: 10px;
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <header>Our Blogs</header>
 
-<header>
-    Our Blogs
-</header>
+    <div class="filter-container">
+        <form method="get" id="filterForm">
+            <div class="custom-select">
+                <select name="type" id="blogType" onchange="document.getElementById('filterForm').submit()">
+                    <option value="">All Types</option>
+                    {% for type in blog_types %}
+                        <option value="{{ type.id }}" {% if type.id|stringformat:"s" in selected_types %}selected{% endif %}>
+                            {{ type.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
 
-<div class="filter-bar">
-    <div class="dropdown">
-        <button>Select Type</button>
-        <div class="dropdown-content">
-            <form method="get" id="filterForm">
-                {% for type in blog_types %}
-                    <label>
-                        <input type="checkbox" name="type" value="{{ type.id }}" 
-                               {% if type.id|stringformat:"s" in selected_types %}checked{% endif %} 
-                               onchange="document.getElementById('filterForm').submit()">
-                        {{ type.name }}
-                    </label>
-                {% endfor %}
-            </form>
+    <div class="container">
+        <div class="blog-list">
+            {% for blog in blogs %}
+            <div class="blog-card">
+                <div class="image-container">
+                    {% if blog.image %}
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                    {% else %}
+                        <p class="no-image">No Image Available</p>
+                    {% endif %}
+                </div>
+                <h3 style="text-align: center;">{{ blog.title }}</h3>
+                <p><strong>Author:</strong> {{ blog.name }}</p>
+                <div class="tags">
+                    {% for type in blog.types.all %}
+                        <span class="tag">{{ type.name }}</span>
+                    {% endfor %}
+                </div>
+                <p>{{ blog.description|slice:"50" }}...</p>
+                <a class="read-more" href="{% url 'blog_detail' blog.slug %}">Read More</a>
+            </div>
+            {% endfor %}
         </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="blog-list">
-        {% for blog in blogs %}
-        <div class="blog-card">
-            <h3>{{ blog.title }}</h3>
-            <p>Types: 
-                {% for type in blog.type.all %}
-                    {{ type.name }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            </p>
-            <p>{{ blog.description|slice:":100" }}...</p>
-            <a class="read-more" href="{% url 'blog_detail' blog.slug %}">Read More</a>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
+    <footer>&copy; 2025 Your Company Name. All rights reserved.</footer>
 </body>
 </html>

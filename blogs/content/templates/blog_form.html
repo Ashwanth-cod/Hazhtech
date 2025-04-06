@@ -1,5 +1,145 @@
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .blog-form-container {
+            max-width: 500px;
+            width: 100%;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .blog-form-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-form-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .blog-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-form label {
+            font-weight: 500;
+            margin: 10px 0 5px;
+            color: #444;
+            font-size: 14px;
+        }
+
+        .blog-form input, 
+        .blog-form textarea, 
+        .blog-form select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border 0.3s ease;
+        }
+
+        .blog-form input:focus, 
+        .blog-form textarea:focus, 
+        .blog-form select:focus {
+            border: 1px solid #2575fc;
+            outline: none;
+            box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
+        }
+
+        .blog-form textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        select {
+            appearance: none;
+            background-color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .file-input {
+            border: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #1a5bbf;
+            transform: scale(1.02);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blog-form-container">
+        <h2><i class="fa-solid fa-pen"></i> Create a Blog</h2>
+        <form method="post" enctype="multipart/form-data" class="blog-form">
+            {% csrf_token %}
+
+            <label for="id_name"><i class="fa-solid fa-user"></i> Author Name</label>
+            {{ form.name }}
+
+            <label for="id_title"><i class="fa-solid fa-heading"></i> Blog Title</label>
+            {{ form.title }}
+
+            <label for="id_types"><i class="fa-solid fa-folder"></i> Select Categories</label>
+            <select name="types" id="id_types">
+                {% for type in form.types %}
+                    <option value="{{ type.name }}">{{ type.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="id_description"><i class="fa-solid fa-file-alt"></i> Description</label>
+            {{ form.description }}
+
+            <label for="id_image"><i class="fa-solid fa-image"></i> Upload Image</label>
+            <input type="file" name="image" id="id_image" class="file-input">
+
+            <button type="submit" class="submit-btn">
+                <i class="fa-solid fa-paper-plane"></i> Submit
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,10 +1,179 @@
-<div>
-    {% if blog.image %}
-        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" width="100%">
-    {% else %}
-        <p>No image available</p>
-    {% endif %}
-    <h1>{{ blog.title }}</h1>
-    <h3>Written by: {{ blog.name }}</h3>
-    <p>{{ blog.description }}</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ blog.title }}</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .blog-container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .blog-container:hover {
+            transform: scale(1.02);
+        }
+
+        .blog-title {
+            font-size: 30px;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .blog-author {
+            font-size: 18px;
+            color: #ffeb3b;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .blog-description {
+            font-size: 16px;
+            color: #f8f8f8;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* Genre Capsule Tags */
+        .genres {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .genre-tag {
+            background: #ff9800;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Comment Section */
+        .comment-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .comment-box {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+            resize: none;
+        }
+
+        .comment-submit {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .comment-submit:hover {
+            background: #e64a19;
+        }
+
+        .comments-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .comment {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 5px solid #ff9800;
+        }
+
+        .comment strong {
+            display: block;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blog-container">
+        <h1 class="blog-title">{{ blog.title }}</h1>
+        <h3 class="blog-author">Written by: {{ blog.name }}</h3>
+
+        <!-- Genre Capsules -->
+        {% if blog.genres.all %}
+            <div class="genres">
+                {% for genre in blog.genres.all %}
+                    <span class="genre-tag">{{ genre.name }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <p class="blog-description">{{ blog.description }}</p>
+    </div>
+
+    <!-- Comment Section -->
+    <div class="comment-section">
+        <h3>Leave a Comment</h3>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" class="comment-box" required>
+            <input type="email" name="email" placeholder="Your Email" class="comment-box" required>
+            <textarea name="comment" class="comment-box" placeholder="Write your comment here..." required></textarea>
+            <button type="submit" class="comment-submit">Post Comment</button>
+        </form>
+        
+        <div class="comments-list">
+            <h3>Comments:</h3>
+            {% for comment in comments %}
+                <div class="comment">
+                    <strong>{{ comment.name }} ({{ comment.email }})</strong>
+                    {{ comment.content }}
+                </div>
+            {% empty %}
+                <p>No comments yet. Be the first to comment!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
