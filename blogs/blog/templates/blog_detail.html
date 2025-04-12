@@ -12,7 +12,7 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
-
+    
         body {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             display: flex;
@@ -21,115 +21,151 @@
             flex-direction: column;
             min-height: 100vh;
             padding: 20px;
+            color: #fff;
         }
-
+    
         .blog-container {
             max-width: 800px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
             text-align: center;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
+    
         .blog-container:hover {
-            transform: scale(1.02);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
-
+    
         .blog-title {
-            font-size: 30px;
-            color: #fff;
-            margin-bottom: 10px;
+            font-size: 32px;
+            color: #ffeb3b;
+            margin-bottom: 15px;
             font-weight: bold;
+            text-transform: uppercase;
         }
-
+    
         .blog-author {
             font-size: 18px;
-            color: #ffeb3b;
+            color: #ff9800;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-
+    
         .blog-description {
             font-size: 16px;
             color: #f8f8f8;
-            line-height: 1.6;
+            line-height: 1.8;
             text-align: justify;
+            margin-bottom: 20px;
         }
-
+    
         /* Genre Capsule Tags */
         .genres {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 8px;
-            margin: 15px 0;
+            gap: 10px;
+            margin: 20px 0;
         }
-
+    
         .genre-tag {
             background: #ff9800;
             color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
+            padding: 8px 15px;
+            border-radius: 25px;
             font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s ease, transform 0.2s ease;
         }
-
+    
+        .genre-tag:hover {
+            background: #e67e22;
+            transform: scale(1.1);
+        }
+    
         /* Comment Section */
         .comment-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
             width: 100%;
             max-width: 800px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
-
+    
+        .comment-section h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #ffeb3b;
+        }
+    
         .comment-box {
             width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
             margin-top: 10px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
             resize: none;
+            transition: border 0.3s ease;
         }
-
+    
+        .comment-box:focus {
+            border: 1px solid #ff9800;
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+        }
+    
         .comment-submit {
-            margin-top: 10px;
-            padding: 10px 20px;
+            margin-top: 15px;
+            padding: 12px 25px;
             background: #ff5722;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            transition: background 0.3s ease-in-out;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
-
+    
         .comment-submit:hover {
             background: #e64a19;
+            transform: translateY(-2px);
         }
-
+    
         .comments-list {
-            margin-top: 20px;
+            margin-top: 30px;
             text-align: left;
         }
-
+    
         .comment {
-            background: white;
+            background: rgba(0, 0, 0, 0.9);
             padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
             border-left: 5px solid #ff9800;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-
+    
         .comment strong {
             display: block;
             font-size: 14px;
             color: #333;
+            margin-bottom: 5px;
+        }
+    
+        .comment p {
+            font-size: 14px;
+            color: #555;
         }
     </style>
 </head>
@@ -152,17 +188,8 @@
     </div>
 
     <!-- Comment Section -->
-    <div class="comment-section">
-        <h3>Leave a Comment</h3>
-        <form method="post">
-            {% csrf_token %}
-            <input type="text" name="name" placeholder="Your Name" class="comment-box" required>
-            <input type="email" name="email" placeholder="Your Email" class="comment-box" required>
-            <textarea name="comment" class="comment-box" placeholder="Write your comment here..." required></textarea>
-            <button type="submit" class="comment-submit">Post Comment</button>
-        </form>
-        
-        <div class="comments-list">
+    <div class="comment-section">      
+       <div class="comments-list">
             <h3>Comments:</h3>
             {% for comment in comments %}
                 <div class="comment">
@@ -172,6 +199,16 @@
             {% empty %}
                 <p>No comments yet. Be the first to comment!</p>
             {% endfor %}
+        </div>
+        <div class="comment-section">
+            <h3>Leave a Comment</h3>
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Your Name" class="comment-box" required>
+                <input type="email" name="email" placeholder="Your Email" class="comment-box" required>
+                <textarea name="comment" class="comment-box" placeholder="Write your comment here..." required></textarea>
+                <button type="submit" class="comment-submit">Post Comment</button>
+            </form>
         </div>
     </div>
 

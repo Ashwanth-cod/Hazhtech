@@ -113,19 +113,23 @@
 
     <div class="blog-form-container">
         <h2><i class="fa-solid fa-pen"></i> Create a Blog</h2>
-        <form method="post" enctype="multipart/form-data" class="blog-form">
+        <form method="post" enctype="multipart/form-data" action="{% url 'blog_create' %}">
+
             {% csrf_token %}
 
             <label for="id_name"><i class="fa-solid fa-user"></i> Author Name</label>
             {{ form.name }}
 
+            <label for="id_name"><i class="fa-solid fa-user"></i> Email</label>
+            {{ form.email }}
+
             <label for="id_title"><i class="fa-solid fa-heading"></i> Blog Title</label>
             {{ form.title }}
 
-            <label for="id_types"><i class="fa-solid fa-folder"></i> Select Categories</label>
-            <select name="types" id="id_types">
-                {% for type in form.types %}
-                    <option value="{{ type.name }}">{{ type.name }}</option>
+            <label for="id_blog_type"><i class="fa-solid fa-folder"></i> Select Categories</label>
+            <select name="blog_type" id="id_blog_type" class="form-control">
+                {% for type in form.fields.blog_type.queryset %}
+                    <option value="{{ type.id }}">{{ type.name }}</option>
                 {% endfor %}
             </select>
 

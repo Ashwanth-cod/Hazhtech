@@ -4,8 +4,5 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', blog_list, name='blog_list'),
-    path('create/', blog_create, name='blog_create'),
-    path('blog/<slug:slug>/', blog_detail, name='blog_detail')
+    path('', index, name='blog_list')
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
