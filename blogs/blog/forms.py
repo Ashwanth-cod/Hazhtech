@@ -9,7 +9,7 @@ class BlogForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Author Name'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}),
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Blog Title'}),
-            'type': forms.SelectMultiple(attrs={'class': 'form-control'}),  # Allow multiple selections
+            'type': forms.Select(attrs={'class': 'form-control', 'placeholder' : 'Select type'}),  # Allow multiple selections
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Blog Description'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }

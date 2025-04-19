@@ -42,7 +42,8 @@ def blog_detail(request, slug):
 
 def blog_create(request):
     if request.method == 'POST':
-        form = BlogForm(request.POST, request.FILES)
+        form = BlogForm(request.POST, request.FILES)   
+        blog_types = BlogType.objects.all()
         if form.is_valid():
             blog = form.save(commit=False)  # Do not save to the database yet
             blog.save()  # Now save it to the database

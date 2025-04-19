@@ -18,55 +18,59 @@
         }
 
         .blog-form-container {
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
-            padding: 25px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease-in-out;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .blog-form-container:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .blog-form-container h2 {
             text-align: center;
             color: #333;
-            margin-bottom: 20px;
-            font-weight: 600;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 26px;
         }
 
         .blog-form {
             display: flex;
             flex-direction: column;
+            gap: 20px;
         }
 
         .blog-form label {
-            font-weight: 500;
-            margin: 10px 0 5px;
+            font-weight: 600;
             color: #444;
             font-size: 14px;
+            margin-bottom: 5px;
         }
 
-        .blog-form input, 
-        .blog-form textarea, 
+        .blog-form input,
+        .blog-form textarea,
         .blog-form select {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 14px;
-            transition: border 0.3s ease;
+            background: #f9f9f9;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .blog-form input:focus, 
-        .blog-form textarea:focus, 
+        .blog-form input:focus,
+        .blog-form textarea:focus,
         .blog-form select:focus {
-            border: 1px solid #2575fc;
+            border: 1px solid #6a11cb;
             outline: none;
-            box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
         }
 
         .blog-form textarea {
@@ -74,38 +78,46 @@
             height: 120px;
         }
 
-        select {
+        .blog-form select {
             appearance: none;
-            background-color: white;
+            background: #f9f9f9;
             cursor: pointer;
             font-size: 14px;
+            padding-right: 30px;
+            position: relative;
+        }
+
+        .blog-form select:focus {
+            background: #ffffff;
         }
 
         .file-input {
             border: none;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
         }
 
         .submit-btn {
             width: 100%;
             padding: 14px;
-            background: #2575fc;
+            background: #6a11cb;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.3s ease, transform 0.2s;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .submit-btn:hover {
-            background: #1a5bbf;
-            transform: scale(1.02);
+            background: #4e0e9e;
+            transform: scale(1.03);
         }
 
         .submit-btn:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
     </style>
 </head>
@@ -114,31 +126,26 @@
     <div class="blog-form-container">
         <h2><i class="fa-solid fa-pen"></i> Create a Blog</h2>
         <form method="post" enctype="multipart/form-data" action="{% url 'blog_create' %}">
-
             {% csrf_token %}
-
+        
             <label for="id_name"><i class="fa-solid fa-user"></i> Author Name</label>
             {{ form.name }}
-
-            <label for="id_name"><i class="fa-solid fa-user"></i> Email</label>
+        
+            <label for="id_email"><i class="fa-solid fa-envelope"></i> Email</label>
             {{ form.email }}
-
+        
             <label for="id_title"><i class="fa-solid fa-heading"></i> Blog Title</label>
             {{ form.title }}
-
-            <label for="id_blog_type"><i class="fa-solid fa-folder"></i> Select Categories</label>
-            <select name="blog_type" id="id_blog_type" class="form-control">
-                {% for type in form.fields.blog_type.queryset %}
-                    <option value="{{ type.id }}">{{ type.name }}</option>
-                {% endfor %}
-            </select>
-
+        
+            <label for="id_types"><i class="fa-solid fa-folder"></i> Select Category</label>
+            {{ form.types }}
+        
             <label for="id_description"><i class="fa-solid fa-file-alt"></i> Description</label>
             {{ form.description }}
-
+        
             <label for="id_image"><i class="fa-solid fa-image"></i> Upload Image</label>
-            <input type="file" name="image" id="id_image" class="file-input">
-
+            {{ form.image }}
+        
             <button type="submit" class="submit-btn">
                 <i class="fa-solid fa-paper-plane"></i> Submit
             </button>
